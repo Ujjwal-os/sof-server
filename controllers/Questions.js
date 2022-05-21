@@ -80,3 +80,14 @@ export const voteQuestion = async (req, res) => {
         res.status(404).json({ message: "id not found"})
     }
 }
+
+export const getTaggedQuestion = async (req, res) => {
+    const {tagData}=req.body;
+    console.log(tagData)
+    try {
+        const questionList = await Questions.find({questionTags:{$all:[tagData]}});
+        res.status(200).json(questionList);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+} 
