@@ -83,8 +83,10 @@ export const voteQuestion = async (req, res) => {
 
 export const getTaggedQuestion = async (req, res) => {
     const {tagData}=req.body;
+    const value=tagData.tagValue;
+    console.log(value)
     try {
-        const questionList = await Questions.find({questionTags:{$all:[tagData]}});
+        const questionList = await Questions.find({questionTags:{$all:[value]}});
         res.status(200).json(questionList);
     } catch (error) {
         res.status(404).json({ message: error.message });
